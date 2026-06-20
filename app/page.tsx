@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from './supabase';
+import Link from 'next/link';
 
 type Book = {
   id: string;
@@ -44,7 +45,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-yellow-50">
-      {/* Header */}
       <header className="bg-blue-700 text-white py-6 px-8 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">📚 Sweet Valley Library</h1>
@@ -55,7 +55,6 @@ export default function Home() {
         </button>
       </header>
 
-      {/* Hero Section */}
       <section className="text-center py-16 px-8">
         <h2 className="text-4xl font-bold text-blue-800 mb-4">
           Find Your Next Favourite Book! 🌟
@@ -72,7 +71,6 @@ export default function Home() {
         />
       </section>
 
-      {/* Filter Buttons */}
       <section className="px-8 mb-8 flex flex-wrap gap-3 justify-center">
         {genres.map((genre) => (
           <button
@@ -89,7 +87,6 @@ export default function Home() {
         ))}
       </section>
 
-      {/* Books Grid */}
       <section className="px-8 pb-16">
         <h3 className="text-2xl font-bold text-blue-800 mb-6">📖 Our Books</h3>
 
@@ -101,9 +98,10 @@ export default function Home() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {filteredBooks.map((book) => (
-            <div
+            <Link
+              href={`/book/${book.id}`}
               key={book.id}
-              className="bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition cursor-pointer"
+              className="bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition cursor-pointer block"
             >
               <div className="bg-blue-200 rounded-xl h-40 mb-3 flex items-center justify-center text-5xl">
                 {book.cover_emoji}
@@ -111,7 +109,7 @@ export default function Home() {
               <h4 className="font-bold text-gray-800">{book.title}</h4>
               <p className="text-gray-500 text-sm">{book.author}</p>
               <p className="text-blue-600 text-xs mt-1">{book.genre} • Ages {book.age_group}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
